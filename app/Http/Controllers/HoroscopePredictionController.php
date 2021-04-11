@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class HoroscopePredictionController extends Controller
 {
+    /**
+    * API method to deterministically pick a random prediction
+    *
+    * @param Request $request
+    * 
+    * @return json
+    */ 
     public function predict(Request $request) {
         if(!is_numeric($request->query('year')) || !is_numeric($request->query('month')) ||
             !is_numeric($request->query('day')) || !is_numeric($request->query('score')) ||

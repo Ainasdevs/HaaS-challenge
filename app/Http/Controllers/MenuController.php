@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Zodiac;
 use Carbon\Carbon;
 use Carbon\Exceptions\OutOfRangeException;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
+    /**
+    * Display the main menu
+    *
+    * @param Request $request
+    * 
+    * @return view
+    */ 
     public function show(Request $request) {
         $date = Carbon::now();
         if(is_numeric($request->query('year'))) {
@@ -37,6 +42,13 @@ class MenuController extends Controller
         ]);
     }
 
+    /**
+    * Pick the best month for each zodiac sign and append it to each zodiac object
+    *
+    * @param $zodiacs Collection of Zodiac objects
+    * @param $year Relevant year
+    * 
+    */ 
     private function markBestMonth($zodiacs, $year) {
         foreach($zodiacs as $zodiac) {
 
@@ -54,6 +66,13 @@ class MenuController extends Controller
         }
     }
 
+    /**
+    * Find the best overall zodiac for a given year
+    *
+    * @param $zodiacs Collection of Zodiac objects
+    * @param $year Relevant year
+    * 
+    */ 
     private function markBestZodiac($zodiacs, $year) {
         foreach($zodiacs as $zodiac) {
             $horoscopes = \App\Models\Horoscope::where('zodiac_id', $zodiac->id)->where('date', 'like', sprintf("%d%%", $year))->get();

@@ -9,7 +9,14 @@ use Illuminate\Support\MessageBag;
 
 class HoroscopeController extends Controller
 {
-    public function generate_horoscopes(Request $request){
+    /**
+    * Method to generate horoscope scores for a given year
+    *
+    * @param Request $request
+    * 
+    * @return view
+    */ 
+    public function generate(Request $request){
         $request->validate([
             'year' => 'required|digits:4',
         ]);

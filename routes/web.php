@@ -22,6 +22,6 @@ Route::get('calendar', [CalendarController::class, 'show']);
 Route::get('generate', function () {
     return view('generate');
 });
-Route::post('generate', [HoroscopeController::class, 'generate_horoscopes']);
+Route::post('generate', [HoroscopeController::class, 'generate']);
 
 

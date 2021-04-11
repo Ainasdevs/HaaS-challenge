@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class CalendarController extends Controller
 {
+    /**
+    * Create a calendar view with colored cells
+    *
+    * @param Request $request
+    * 
+    * @return view
+    */ 
     public function show(Request $request) {
         if(!is_numeric($request->query('zodiac'))) {
             return redirect('/');
@@ -44,7 +51,6 @@ class CalendarController extends Controller
             return $item;
         })->values();
 
-        //dd($horoscopes);
         $prevMonth = new Carbon($date);
         $prevMonth->subMonth();
         $nextMonth = new Carbon($date);
@@ -59,6 +65,15 @@ class CalendarController extends Controller
         ]);
     }
 
+    /**
+    * Linear interpolation function
+    *
+    * @param integer $min Lower bound
+    * @param integer $max Upper bound
+    * @param integer $t Interpolation coefficient
+    * 
+    * @return integer Interpolated value between $min and $max
+    */ 
     private function lerp($min, $max, $t) {
         return (1 - $t) * $min + $t * $max;
     }
