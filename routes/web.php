@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\HoroscopeController;
+use \App\Http\Controllers\CalendarController;
+use \App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [MenuController::class, 'show']);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('calendar', [CalendarController::class, 'show']);
+
+Route::get('generate', function () {
+    return view('generate');
 });
+Route::post('generate', [HoroscopeController::class, 'generate_horoscopes']);
+
+
