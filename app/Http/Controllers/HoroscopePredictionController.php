@@ -22,7 +22,11 @@ class HoroscopePredictionController extends Controller
         }
 
         $validPredictions = \App\Models\HoroscopePrediction::whereBetween('score', [$request->query('score') - 2, $request->query('score') + 1])->get();
-
+        /*
+        The purpose of the following code is to make sure that one combination of year, month, day, score, and sign always results in the same prediction.
+        It would be weird if every time we asked for a prediction for one specific date, it would come up with a different one every time.
+        This way it does't look like we are trying to trick the user, and actually provide a legitimate prediction.
+        */
         $hash = sha1(sprintf('%d%02d%d%02d%d', $request->query('year'), $request->query('month'),
                                                 $request->query('day'), $request->query('score'), $request->query('zodiac')));
         
